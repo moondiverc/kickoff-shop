@@ -1,5 +1,5 @@
 # KickOff Shop
 
-Nama: Nezzaluna Azzahra
-NPM: 2406495741
+Nama: Nezzaluna Azzahra\n
+NPM: 2406495741\n
 Kelas: PBP-D
