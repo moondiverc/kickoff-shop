@@ -4,7 +4,7 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 
 ## Tugas 2
 
-**Langkah-langkah pengerjaan project.**
+**Implementasi checklist step by step.**
 
 1. Membuat project Django dengan langkah-langkah seperti mengaktifkan virtual environemnt, menginstall dependencies, membuat projrct Django dengan command "django-admin startproject kickoff-shop .", membuat konfigurasi environment variables melalui kredensial database yang telah dibagikan, mengatur konfigurasi di settings.py(menambah library, mengubah allowed hosts, menambah konfigurasi production, mengubah konfigurasi database), melakukan migrasi dan run server, sehingga web dapat diakses melalui local host(localhost:8000). Tambahan langkah yaitu membuat file .gitignore untuk mengabaikan file-file yang tidak perlu dilacak oleh Git.
 2. Membuat aplikasi main dengan command "python manage.py startapp main".Kemudian diikuti langkah-langkah seperti mendaftarkan aplikasi main ke installed apps di kickoff_shop/settings.py.
@@ -19,7 +19,7 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 **Jawaban Pertanyaan**
 
 - Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-  ![](static/images/bagan.png)
+  ![](static/images/bagan.png)  
   Pertama user akan mengirim HTTP request ke server dan akan diproses oleh urls.py yang kemudian diteruskan ke view.py yang sesuai dengan request tersebut. Kemudian views.py akan memproses request tersebut dengan membaca/menulis data dari/ke models.py dan views.py akan mengirim data tersebut ke template (berkas HTML) untuk dirender. Setelah itu, template akan menghasilkan halaman yang sesuai dengan data yang diterima dari views.py. Akhirnya, halaman tersebut akan dikirim kembali ke user sebagai HTTP response.
 - Jelaskan peran settings.py dalam proyek Django!
   Secara umum settings.py berfungsi untuk mengatur konfigurasi pada project Django yang sedang dikerjakan. Beberapa konfigurasi yang diatur pada settings.py antara lain adalah konfigurasi database, aplikasi yang digunakan/diinstall untuk project, host yang diizinkan, templates dan static, middleware, informasi keamanan, dan konfigurasi lainnya.
