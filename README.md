@@ -18,14 +18,14 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 
 **Jawaban Pertanyaan**
 
-- Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+- Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.  
   ![](static/images/bagan.png)  
   Pertama user akan mengirim HTTP request ke server dan akan diproses oleh urls.py yang kemudian diteruskan ke view.py yang sesuai dengan request tersebut. Kemudian views.py akan memproses request tersebut dengan membaca/menulis data dari/ke models.py dan views.py akan mengirim data tersebut ke template (berkas HTML) untuk dirender. Setelah itu, template akan menghasilkan halaman yang sesuai dengan data yang diterima dari views.py. Akhirnya, halaman tersebut akan dikirim kembali ke user sebagai HTTP response.
-- Jelaskan peran settings.py dalam proyek Django!
+- Jelaskan peran settings.py dalam proyek Django!  
   Secara umum settings.py berfungsi untuk mengatur konfigurasi pada project Django yang sedang dikerjakan. Beberapa konfigurasi yang diatur pada settings.py antara lain adalah konfigurasi database, aplikasi yang digunakan/diinstall untuk project, host yang diizinkan, templates dan static, middleware, informasi keamanan, dan konfigurasi lainnya.
-- Bagaimana cara kerja migrasi database di Django?
+- Bagaimana cara kerja migrasi database di Django?  
   Migrasi model adalah cara framework Django untuk melacak perubahan pada model basis data pada project dan command migrasi ini dilakukan untuk mengubah struktur tabel basis data sesuai dengan perubahan model yang didefinikan dalam kode terbaru. Cara kerja migrasi database di Django adalah dengan menjalankan command "make migrations" untuk membuat berkas migrasi yang berisi perubahan model yang belum diaplikasikan ke dalam basis data. Kemudian, menggunakan command "migrate" untuk menerapkan migrasi ke dalam basis data lokal, command tersebut mengaplikasikan perubahan model yang tercantum dalam berkas migrasi ke basis data dengan menjalankan command sebelumnya. Setiap kali melakukan perubahan pada model, migrasi harus selalu dilakukan untuk merefleksikan perubahan tersebut.
-- Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+- Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?  
   Menurut saya, framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak karena Django menyediakan banyak fitur bawaan dan library yang memudahkan pengembangan aplikasi web, menerapkan konsep MVT dimana Django memisahkan antara data, logika, dan tampilan sehingga memiliki struktur project yang jelas, memiliki keamanan bawaan yang baik, mudah integrasi dengan database, serta memiliki dapat digunakan untuk mengembangkan dari project skala kecil hingga besar.
-- Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
+- Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?  
   Asisten dosen sudah stand-by ketika tutorial sehingga dapat membantu jika ada pertanyaan atau kendala.
