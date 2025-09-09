@@ -17,6 +17,7 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 - Akhirnya web dapat diakses melalui URL yang telah dibuat di PWS.
 
 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+   ![](static/images/bagan.jpg)
 3. Jelaskan peran settings.py dalam proyek Django!
    Secara umum settings.py berfungsi untuk mengatur konfigurasi pada project Django yang sedang dikerjakan. Beberapa konfigurasi yang diatur pada settings.py antara lain adalah konfigurasi database, aplikasi yang digunakan/diinstall untuk project, host yang diizinkan, templates dan static, middleware, informasi keamanan, dan konfigurasi lainnya.
 4. Bagaimana cara kerja migrasi database di Django?
