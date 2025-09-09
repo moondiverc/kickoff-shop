@@ -6,34 +6,19 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 
 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
 
-- Membuat dan mengaktifkan virtual environment
-- Menyiapkan dan menginstall dependencies
-- Membuat project Django
-- Membuat .env dan .env.prod file
-- Setting library di kickoff-shop/settings.py
-- Mengubah allowed hosts di kickoff-shop/settings.py
-- Menambah konfigurasi production di kickoff-shop/settings.py
-- Mengubah konfigurasi database di kickoff-shop/settings.py
-- Melakukan migrasi dan run server
-- Membuat file .gitignore
-- Membuat new project di PWS
-- Mengubah environs dengan isi file .env.prod
-- Menambahkan URL web di allowed hosts
-- Melakukan add, commit, dan push ke GitHub
-- Menjalankan command git di Project Command kemudian isi username dan password
-- Membuat aplikasi Django
-- Mendaftarkan main ke project di kickoff-shop/settings.py
-- Membuat template folder di dalam main dan isi dengan main.html
-- Membuat model dengan membuat class Product dan atribut wajib di main/models.py
-- Melakukan migrasi model
-- Membuat fungsi show_main pada main/views.py
-- Membuat tampilan HTML pada main/templates/main.html beserta parameter yang akan ditampilkan
-- Membuat file untuk routing pada main/urls.py
-- Mendaftarkan routing main ke project pada kickoff-shop/urls.py
+- Membuat project Django dengan langkah-langkah seperti mengaktifkan virtual environemnt, menginstall dependencies, membuat projrct Django dengan command "django-admin startproject kickoff-shop .", membuat konfigurasi environment variables melalui kredensial database yang telah dibagikan, mengatur konfigurasi di settings.py(menambah library, mengubah allowed hosts, menambah konfigurasi production, mengubah konfigurasi database), melakukan migrasi dan run server, sehingga web dapat diakses melalui local host(localhost:8000). Tambahan langkah yaitu membuat file .gitignore untuk mengabaikan file-file yang tidak perlu dilacak oleh Git.
+- Membuat aplikasi main dengan command "python manage.py startapp main".Kemudian diikuti langkah-langkah seperti mendaftarkan aplikasi main ke installed apps di kickoff_shop/settings.py.
+- Melakukan routing pada project agar dapat menjalankan aplikasi main dengan langkah- langkah seperti membuat file urls.py pada folder main, mendaftarkan routing main ke project pada url patterns di kickoff_shop/urls.py.
+- Membuat model pada aplikasi main dengan nama Product dan memiliki atribut beserta tipe data dan parameternya sesuai ketentuan pada tugas. Kemudian melakukan migrasi model dengan command "makemigrations" dan "migrate".
+- Membuat folder templates dalam folder main kemudian membuat file main.html yang berisi kode HTML yang menampilkan nama aplikasi dan parameter nama, NPM, dan kelas. Kemudian membuat fungsi show_main pada main/views.py untuk dikembalikan ke dalam template HTML, sehingga data pada fungsi show_main dapat ditampilkan.
+- Membuat routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py dengan import fungsi show_main dari main/views.py dan membuat url patterns untuk memetakan fungsi show_main.
+- Setelah menyelesaikan tiap langkah, selalu melakukan add, commit, dan push ke GitHub.
+- Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat dengan langkah-langkah seperti membuat project baru di PWS, mengubah environs dengan kredensial database, menambahkan URL web di allowed hosts, melakukan add, commit, dan push ke GitHub, kemudian menjalankan command git di Project Command kemudian mengisi username dan password.
+- Akhirnya web dapat diakses melalui URL yang telah dibuat di PWS.
 
 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 3. Jelaskan peran settings.py dalam proyek Django!
-   Secara umum settings.py berfungsi untuk mengatur konfigurasi pada project Django yang sedang dikerjakan. Beberapa konfigurasi yang diatur pada settings.py antara lain adalah konfigurasi database, aplikasi yang digunakan, host yang diizinkan, templates dan static, middleware, informasi keamanan, dan konfigurasi lainnya.
+   Secara umum settings.py berfungsi untuk mengatur konfigurasi pada project Django yang sedang dikerjakan. Beberapa konfigurasi yang diatur pada settings.py antara lain adalah konfigurasi database, aplikasi yang digunakan/diinstall untuk project, host yang diizinkan, templates dan static, middleware, informasi keamanan, dan konfigurasi lainnya.
 4. Bagaimana cara kerja migrasi database di Django?
    Migrasi model adalah cara framework Django untuk melacak perubahan pada model basis data pada project dan command migrasi ini dilakukan untuk mengubah struktur tabel basis data sesuai dengan perubahan model yang didefinikan dalam kode terbaru. Cara kerja migrasi database di Django adalah dengan menjalankan command "make migrations" untuk membuat berkas migrasi yang berisi perubahan model yang belum diaplikasikan ke dalam basis data. Kemudian, menggunakan command "migrate" untuk menerapkan migrasi ke dalam basis data lokal, command tersebut mengaplikasikan perubahan model yang tercantum dalam berkas migrasi ke basis data dengan menjalankan command sebelumnya. Setiap kali melakukan perubahan pada model, migrasi harus selalu dilakukan untuk merefleksikan perubahan tersebut.
 5. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
