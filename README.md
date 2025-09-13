@@ -32,6 +32,8 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 
 ## Tugas 3
 
+**Jawaban Pertanyaan**
+
 - Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 - Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
 - Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
