@@ -6,17 +6,16 @@
     <title>KickOff Shop</title>
   </head>
   <body>
+    {% extends 'base.html' %} {% block content %}
     <h1>KickOff Shop</h1>
     <h2>The Best Football Shop in Town!</h2>
 
     <h4>NPM:</h4>
     <p>{{ npm }}</p>
-    <!-- Ubah sesuai dengan npm kamu -->
     <h4>Name:</h4>
     <p>{{ name }}</p>
-    <!-- Ubah sesuai dengan nama kamu -->
     <h4>Class:</h4>
     <p>{{ class }}</p>
-    <!-- Ubah sesuai dengan kelas kamu -->
+    {% endblock content %}
   </body>
 </html>
