@@ -6,17 +6,16 @@
 </p>
 
 <h1>{{ product.name }}</h1>
-<p>
-  <b>{{ product.get_category_display }}</b>{% if product.is_featured %} |
-  <b>Featured</b>{% endif %}{% if product.is_news_hot %} | <b>Hot</b>{% endif %}
-  |
-  <i>{{ product.created_at|date:"d M Y, H:i" }}</i>
-</p>
-
 {% if product.thumbnail %}
 <img src="{{ product.thumbnail }}" alt="Product thumbnail" width="300" />
-<br /><br />
 {% endif %}
+<p>
+    <b>Rp.{{ product.price }}</b>
+    </br></br>
+    <b>{{ product.get_category_display }}</b> | {% if product.is_featured %}
+    <b>Featured</b> | {% endif %}
+    <b>Stock: {{ product.stock }}</b>
+</p>
 
 <p>{{ product.description }}</p>
 
