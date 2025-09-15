@@ -49,7 +49,6 @@
         <b>{{ product.get_category_display }}</b> | {% if product.is_featured %}
         <b>Featured</b> | {% endif %}
         <b>Stock: {{ product.stock }}</b> |
-        <b>Rating: {{ product.rating }}</b>
       </p>
 
       <p>{{ product.description|truncatewords:25 }}...</p>
