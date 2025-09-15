@@ -39,6 +39,11 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 3. Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek dengan mengubah main/templates/main.html, dengan menambahkan button add product yang link ke create_product untuk merender halaman create_product.html, kemudian membuat conditional apabila tidak ada data di product_list, apabila data ada maka akan merender kode dengan semua data yang ada di product_list, kemudian menambahkan button product detail yang link ke show_product dengan parameter product_id untuk merender dan menuju halaman product_detail.
 4. Membuat halaman form untuk menambahkan objek model pada app sebelumnya dengan membuat file forms.py di direktori main, kemudian mengimport ModelForm dari Django dan data model Product dari main/models.py, setelah itu membuat class ProductForm dengan model Product dan fields yang berisi data yang ingin dimunculkan di form. Setelah itu membuat fungsi create_product di main/views.py. Kemudian membuat file create_product.html untuk membuat halaman form dengan extends base.html, membuat form dengan method POST, menambahkan csfr_token untuk keamanan, menampilkan form dengan {{ form.as_table }}, dan menambahkan button add product dengan tipe submit dan yang terakhir membuat routing di main/urls.py untuk mengarahkan ke view create_product.
 5. Membuat halaman yang menampilkan detail dari setiap data objek model dengan membuat file product_detail.html untuk membuat halaman detail produk dengan extends base.html. Setelah itu membuat fungsi show_product di main/views.py yang berfungsi untuk mengambil data produk sesuai id yang dikirim. Setelah itu membuat kode untuk menampilkan data dengan memanggil fungsi tersebut di main/views.py. Kemudian membuat routing URL untuk mengakses fungsi show_product dengan mengimport fungsi show_product dari main
+6. Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.  
+   ![](static/images/json.png)  
+   ![](static/images/xml.png)  
+   ![](static/images/json_id.png)  
+   ![](static/images/xml_id.png)
 
 **Jawaban Pertanyaan**
 
