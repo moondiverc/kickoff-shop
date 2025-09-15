@@ -19,7 +19,7 @@ class Product(models.Model):
     thumbnail = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='apparel')
     is_featured = models.BooleanField(default=False)
-    rating = models.FloatField(default=0.0)
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
