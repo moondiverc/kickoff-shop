@@ -1,71 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KickOff Shop</title>
-  </head>
-  <body>
-    <h1>KickOff Shop</h1>
-    <h2>The Best Football Shop in Town!</h2>
-    <h5>NPM:</h5>
-    <p>{{ npm }}</p>
+<h1>KickOff Shop</h1>
 
-    <h5>Name:</h5>
-    <p>{{ name }}</p>
+<h2>The Best Football Shop in Town!</h2>
+<h5>NPM:</h5>
+<p>{{ npm }}</p>
 
-    <h5>Class:</h5>
-    <p>{{ class }}</p>
+<h5>Name:</h5>
+<p>{{ name }}</p>
 
-    <h4>Add new product to the shop:</h4>
-    <a href="{% url 'main:create_product' %}">
-      <button>+ Add Product</button>
-    </a>
+<h5>Class:</h5>
+<p>{{ class }}</p>
 
+<h4>Add new product to the shop:</h4>
+<a href="{% url 'main:create_product' %}">
+  <button>+ Add Product</button>
+</a>
+
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+
+<h5>{{ user.username }}'s last login session: {{ last_login }}</h5>
+
+<hr />
+
+<a href="?filter=all">
+    <button type="button">All Products</button>
+</a>
+<a href="?filter=my">
+    <button type="button">My Products</button>
+</a>
+
+{% if not product_list %}
+<p>Belum ada data produk pada KickOff Shop.</p>
+{% else %} {% for product in product_list %}
+<div>
+  <h2>
+    <a href="{% url 'main:show_product' product.id %}"
+      >{{ product.name }}</a
+    >
+  </h2>
+
+  {% if product.thumbnail %}
+  <img
+    src="{{ product.thumbnail }}"
+    alt="thumbnail"
+    width="150"
+    height="100"
+  />
+  <br />
+  {% endif %}
+
+  <p>
+    <b>Rp.{{ product.price }}</b>
     </br></br>
+    <b>{{ product.get_category_display }}</b> | {% if product.is_featured %}
+    <b>Featured</b> | {% endif %}
+    <b>Stock: {{ product.stock }}</b>
+    </br></br>
+    <b>Rating: {{ product.rating }}</b>
+  </p>
 
-    <hr />
+  <p>{{ product.description|truncatewords:25 }}...</p>
 
-    {% if not product_list %}
-    <p>Belum ada data produk pada KickOff Shop.</p>
-    {% else %} {% for product in product_list %}
-    <div>
-      <h2>
-        <a href="{% url 'main:show_product' product.id %}"
-          >{{ product.name }}</a
-        >
-      </h2>
+  <p>
+    <a href="{% url 'main:show_product' product.id %}"
+      ><button>Product Detail</button></a
+    >
+  </p>
+</div>
 
-      {% if product.thumbnail %}
-      <img
-        src="{{ product.thumbnail }}"
-        alt="thumbnail"
-        width="150"
-        height="100"
-      />
-      <br />
-      {% endif %}
-
-      <p>
-        <b>Rp.{{ product.price }}</b>
-        </br></br>
-        <b>{{ product.get_category_display }}</b> | {% if product.is_featured %}
-        <b>Featured</b> | {% endif %}
-        <b>Stock: {{ product.stock }}</b>
-        </br></br>
-        <b>Rating: {{ product.rating }}</b>
-      </p>
-
-      <p>{{ product.description|truncatewords:25 }}...</p>
-
-      <p>
-        <a href="{% url 'main:show_product' product.id %}"
-          ><button>Product Detail</button></a
-        >
-      </p>
-    </div>
-
-    <hr />
-    {% endfor %} {% endif %}
-  </body>
-</html>
+<hr />
+{% endfor %} {% endif %}
