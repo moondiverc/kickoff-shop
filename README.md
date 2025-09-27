@@ -77,3 +77,14 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
   Kelebihan session dalam konteks menyimpan state di aplikasi web adalah lebih aman karena data disimpan di server, namun memerlukan penyimpanan server-side dan dapat membebani server jika terlalu banyak data yang disimpan, sedangkan kekurangan session adalah lebih sulit untuk diimplementasikan dan dikelola dan dapat menyebabkan masalah scalability jika tidak dirancang dengan baik. Kelebihan cookies adalah state disimpan di browser user sehingga tidak membebani server dan dapat digunakan lintas request tanpa perlu server-side database, sedangkan kekurangan cookies adalah ukuran penyimpanan terbatas, lebih rentan terhadap serangan seperti XSS, dan tidak aman untuk menyimpan data sensitif secara langsung.
 - Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?  
   Penggunaan cookies tidak sepenuhnya aman secara default, ada risiko potensial yang harus diwaspadai diantaranya Cross-Site Scripting (XSS) melalui pencurian cookies, Cross-Site Request Forgery (CSRF) dimana penyerang dapat memanfaatkan cookies di browser untuk melakukan tindakan tidak sah tanpa sepengetahuan user. Cara Django menangani hal tersebut adalah dengan menyediakan fitur keamanan seperti HttpOnly cookies yang tidak dapat diakses oleh JavaScript, Secure cookies yang hanya dikirim melalui koneksi HTTPS, dan membuat mekanisme CSRF protection untuk melindungi aplikasi dari serangan CSRF.
+
+## Tugas 4
+
+**Implementasi checklist step by step.**
+
+**Jawaban pertanyaan**
+
+- Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+- Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+- Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+- Jelaskan konsep flex box dan grid layout beserta kegunaannya!
