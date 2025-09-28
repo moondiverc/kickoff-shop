@@ -47,7 +47,7 @@
             name="username"
             type="text"
             required
-            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition-colors"
+            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-red-500 transition-colors"
             placeholder="Enter your username" />
         </div>
 
@@ -62,13 +62,13 @@
             name="password"
             type="password"
             required
-            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition-colors"
+            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-red-500 transition-colors"
             placeholder="Enter your password" />
         </div>
 
         <button
           type="submit"
-          class="w-full bg-green-600 text-white font-medium py-3 px-4 rounded-md hover:bg-green-700 transition-colors">
+          class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 transition-colors">
           Sign In
         </button>
       </form>
@@ -78,7 +78,7 @@
       <div class="mt-6">
         {% for message in messages %}
         <div
-          class="px-4 py-3 rounded-md text-sm border {% if message.tags == 'success' %} bg-green-50 border-green-200 text-green-700 {% elif message.tags == 'error' %} bg-red-50 border-red-200 text-red-700 {% else %} bg-gray-50 border-gray-200 text-gray-700 {% endif %}">
+          class="px-4 py-3 rounded-md text-sm border {% if message.tags == 'success' %} bg-red-50 border-red-200 text-red-700 {% elif message.tags == 'error' %} bg-red-50 border-red-200 text-red-700 {% else %} bg-gray-50 border-gray-200 text-gray-700 {% endif %}">
           {{ message }}
         </div>
         {% endfor %}
@@ -90,7 +90,7 @@
           Don't have an account?
           <a
             href="{% url 'main:register' %}"
-            class="text-green-600 hover:text-green-700 font-medium">
+            class="text-blue-600 hover:text-blue-700 font-medium">
             Register Now
           </a>
         </p>

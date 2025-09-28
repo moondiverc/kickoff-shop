@@ -10,8 +10,8 @@ form select {
 form textarea:focus,
 form select:focus {
   outline: none;
-  border-color: #16a34a;
-  box-shadow: 0 0 0 3px #16a34a;
+  border-color: #e53535;
+  box-shadow: 0 0 0 3px #e53535;
 }
 
 .form-style input[type="checkbox"] {
@@ -29,8 +29,8 @@ form select:focus {
 }
 
 .form-style input[type="checkbox"]:checked {
-  background-color: #16a34a;
-  border-color: #16a34a;
+  background-color: #e53535;
+  border-color: #e53535;
 }
 
 .form-style input[type="checkbox"]:checked::after {
@@ -46,6 +46,6 @@ form select:focus {
 
 .form-style input[type="checkbox"]:focus {
   outline: none;
-  border-color: #16a34a;
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+  border-color: #e53535;
+  box-shadow: 0 0 0 3px rgba(229, 53, 53, 0.1);
 }
