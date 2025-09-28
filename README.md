@@ -78,13 +78,29 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 - Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?  
   Penggunaan cookies tidak sepenuhnya aman secara default, ada risiko potensial yang harus diwaspadai diantaranya Cross-Site Scripting (XSS) melalui pencurian cookies, Cross-Site Request Forgery (CSRF) dimana penyerang dapat memanfaatkan cookies di browser untuk melakukan tindakan tidak sah tanpa sepengetahuan user. Cara Django menangani hal tersebut adalah dengan menyediakan fitur keamanan seperti HttpOnly cookies yang tidak dapat diakses oleh JavaScript, Secure cookies yang hanya dikirim melalui koneksi HTTPS, dan membuat mekanisme CSRF protection untuk melindungi aplikasi dari serangan CSRF.
 
-## Tugas 4
+## Tugas 5
 
 **Implementasi checklist step by step.**
+1. Mengimplementasikan fungsi untuk menghapus dan mengedit product dengan membuat fungsi edit_product di main/views.py dan membuat fungsi tersebut dengan method GET dan POST, kemudian membuat file edit_product.html untuk menampilkan halaman edit product, membuat routing di urls.py dan membuat path untuk mengakses fungsi edit_product. Membuat fungsi delete_product di main/views.py dengan membuat fungsi tersebut dengan method POST, menambahkan button delete di product_detail.html yang terhubung ke fungsi delete_product, membuat routing di urls.py dan membuat path untuk mengakses fungsi delete_product.
+2. Kustomisasi halaman login, register, tambah product, edit product, dan detail product dengan memodifikasi base.html sehingga dapat terhubung pada semua halaman, menambahkan styling pada setiap halaman dengan menggunakan Tailwind CSS.
+3. 
 
 **Jawaban pertanyaan**
 
-- Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
-- Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
-- Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
-- Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+- Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!  
+  Urutan prioritas pengambilan CSS selector adalah sebagai berikut:  
+  1. Inline Style (menggunakan atribut style pada elemen HTML) memiliki prioritas tertinggi.  
+  2. ID Selector (#id) memiliki prioritas lebih tinggi daripada class, attribute, dan pseudo-class selectors.  
+  3. Class Selector (.class), Attribute Selector ([type="text"]), dan Pseudo-class Selector (:hover) memiliki prioritas yang sama, tetapi lebih rendah daripada ID Selector.  
+  4. Element Selector (div, p, h1) memiliki prioritas paling rendah.  
+  5. Jika terdapat konflik antara beberapa selector dengan prioritas yang sama, maka yang terakhir didefinisikan dalam CSS yang akan diterapkan.
+
+- Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!  
+Menurut saya, responsive design menjadi konsep yang penting dalam pengembangan aplikasi web karena pengguna tidak hanya mengakses aplikasi web kita dari satu jenis perangkat saja, bisa bermacam-macam mulai dari handphone, desktop, laptop, tablet, dan perangkat lainnya, sehingga dengan responsive design, aplikasi web dapat menyesuaikan tampilannya agar tetap optimal dan mudah digunakan di berbagai perangkat. Contoh aplikasi yang sudah menerapkan responsive design adalah Facebook, dimana tampilan Facebook dapat menyesuaikan baik dari perangkat mobile maupun desktop sehingga tetap nyaman digunakan. Sedangkan contoh aplikasi yang belum menerapkan responsive design adalah website lama seperti Craigslist, dimana tampilan website tersebut tidak menyesuaikan dengan baik pada perangkat mobile sehingga sulit untuk dinavigasi dan dibaca. Hal ini terjadi karena desain website tersebut tidak fleksibel dan tidak mempertimbangkan berbagai ukuran layar perangkat.
+- Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!  
+Margin adalah ruang di luar border elemen yang memisahkan elemen tersebut dari elemen lainnya. Border adalah garis yang mengelilingi elemen, yang dapat memiliki ketebalan, warna, dan gaya tertentu. Padding adalah ruang di dalam border elemen yang memisahkan konten elemen dari border itu sendiri. Cara mengimplementasikan ketiga hal tersebut adalah dengan menggunakan properti CSS:  
+  - Untuk margin, kita dapat menggunakan properti `margin` diikuti dengan nilai yang diinginkan, misalnya `margin: 10px;` untuk memberikan margin sebesar 10 piksel di semua sisi elemen.  
+  - Untuk border, kita dapat menggunakan properti `border` diikuti dengan ketebalan, gaya, dan warna border, misalnya `border: 2px solid black;` untuk memberikan border hitam dengan ketebalan 2 piksel dan gaya solid.  
+  - Untuk padding, kita dapat menggunakan properti `padding` diikuti dengan nilai yang diinginkan, misalnya `padding: 15px;` untuk memberikan padding sebesar 15 piksel di semua sisi konten elemen.
+- Jelaskan konsep flex box dan grid layout beserta kegunaannya!  
+Flex box adalah model layout satu dimensi yang digunakan untuk mengatur tata letak elemen dalam satu baris atau kolom, sehingga elemen dapat dengan mudah disejajarkan, didistribusikan, dan diatur ukurannya. Kegunaan flex box adalah untuk membuat layout yang responsif dan fleksibel. Grid layout adalah model layout dua dimensi yang digunakan untuk mengatur elemen dalam baris dan kolom, sehingga memungkinkan pembuatan tata letak yang lebih kompleks dan terstruktur. Kegunaan grid layout adalah untuk membuat layout halaman web yang lebih terorganisir, seperti membuat galeri gambar, dashboard, tabel, atau halaman produk yang memiliki banyak elemen yang perlu diatur secara rapi.
