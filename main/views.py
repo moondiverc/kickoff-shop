@@ -122,12 +122,6 @@ def delete_product(request, id):
 
 
 
-
-
-
-
-
-
 # mengembalikan data dalam bentuk XML
 def show_xml(request):
     product_list = Product.objects.all()
