@@ -36,17 +36,17 @@
                     {{ product.name }}
                 </h1>
                 
-                <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
+                {% comment %} <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
                     
-                </div>
+                </div> {% endcomment %}
             </div>
 
             <!-- Featured Image -->
             {% if product.thumbnail %}
                 <div class="px-6 sm:px-8">
                     <img src="{{ product.thumbnail }}" 
-                         alt="{{ product.name }}" 
-                         class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
+                        alt="{{ product.name }}" 
+                        class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
                 </div>
             {% endif %}
 

@@ -3,7 +3,9 @@
   <!-- Thumbnail -->
   <div class="flex-1 p-3">
     {% if product.thumbnail %}
+    <a href="{% url 'main:show_product' product.id %}">
       <img src="{{ product.thumbnail }}" alt="{{ product.name }}" class="w-full h-full object-cover rounded-lg">
+    </a>
     {% else %}
       <div class="w-full h-full bg-gray-200 rounded-lg"></div>
     {% endif %}
