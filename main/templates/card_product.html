@@ -25,12 +25,12 @@
       </h3>
     </div>
         
-    <!-- Description -->
+    {% comment %} <!-- Description -->
     <div class="h-8 mb-2 overflow-hidden">
       <p class="text-gray-600 text-xs leading-4 line-clamp-2">
           {{ product.description|truncatewords:12 }}
       </p>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Price -->
     <div class="h-5 mb-2 flex items-center">
