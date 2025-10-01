@@ -93,12 +93,11 @@ KickOff Shop adalah project Django sederhana mengenai toko yang menjual perlengk
 
 - Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!  
   Urutan prioritas pengambilan CSS selector adalah sebagai berikut:  
-  1. Inline Style (menggunakan atribut style pada elemen HTML) memiliki prioritas tertinggi.  
-  2. ID Selector (#id) memiliki prioritas lebih tinggi daripada class, attribute, dan pseudo-class selectors.  
-  3. Class Selector (.class), Attribute Selector ([type="text"]), dan Pseudo-class Selector (:hover) memiliki prioritas yang sama, tetapi lebih rendah daripada ID Selector.  
-  4. Element Selector (div, p, h1) memiliki prioritas paling rendah.  
-  5. Jika terdapat konflik antara beberapa selector dengan prioritas yang sama, maka yang terakhir didefinisikan dalam CSS yang akan diterapkan.
-
+  1. Inline Style, implementasi langsung pada elemen HTML menggunakan atribut style dan merupakan prioritas tertinggi karena style tersebut mentargetkan elemen spesifik tersebut.  
+  2. ID Selector, menggunakan tanda pagar "#" diikuti dengan nama id dan akan diterapkan pada elemen dengan id yang sesuai.  
+  3. Class Selector, Attribute Selector, dan Pseudo-class Selector memiliki prioritas yang sama. Class selector menggunakan tanda titik "." diikuti dengan nama class, Attribute Selector menggunakan tanda kurung siku "[]" untuk mentargetkan elemen berdasarkan atribut tertentu, dan Pseudo-class Selector menggunakan tanda titik dua ":" diikuti dengan nama pseudo-class.  
+  4. Element Selector dan Pseudo-element Selector memiliki prioritas yang sama. Element Selector mentargetkan elemen HTML berdasarkan nama tagnya, sedangkan Pseudo-element Selector menggunakan tanda titik dua ganda "::" diikuti dengan nama pseudo-element.  
+  5. Universal Selector, menggunakan tanda bintang "*" yang akan diterapkan pada semua elemen jika tidak ada selector lain yang lebih spesifik.
 - Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!  
 Menurut saya, responsive design menjadi konsep yang penting dalam pengembangan aplikasi web karena pengguna tidak hanya mengakses aplikasi web kita dari satu jenis perangkat saja, bisa bermacam-macam mulai dari handphone, desktop, laptop, tablet, dan perangkat lainnya, sehingga dengan responsive design, aplikasi web dapat menyesuaikan tampilannya agar tetap optimal dan mudah digunakan di berbagai perangkat. Contoh aplikasi yang sudah menerapkan responsive design adalah Facebook, dimana tampilan Facebook dapat menyesuaikan baik dari perangkat mobile maupun desktop sehingga tetap nyaman digunakan. Sedangkan contoh aplikasi yang belum menerapkan responsive design adalah website lama seperti Craigslist, dimana tampilan website tersebut tidak menyesuaikan dengan baik pada perangkat mobile sehingga sulit untuk dinavigasi dan dibaca. Hal ini terjadi karena desain website tersebut tidak fleksibel dan tidak mempertimbangkan berbagai ukuran layar perangkat.
 - Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!  
