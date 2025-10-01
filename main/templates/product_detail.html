@@ -36,38 +36,40 @@
                     {{ product.name }}
                 </h1>
                 
-                {% comment %} <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
-                    
-                </div> {% endcomment %}
             </div>
-
+            
             <!-- Featured Image -->
             {% if product.thumbnail %}
-                <div class="px-6 sm:px-8">
-                    <img src="{{ product.thumbnail }}" 
-                        alt="{{ product.name }}" 
-                        class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
-                </div>
+            <div class="px-6 sm:px-8">
+                <img src="{{ product.thumbnail }}" 
+                alt="{{ product.name }}" 
+                class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
+            </div>
+            <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4 px-6 sm:px-8 py-4 border-b border-gray-200">
+                <span>Price: Rp {{ product.price|floatformat:0 }}</span>
+                <span>Stock: {{ product.stock }}</span>
+            </div>
             {% endif %}
 
             <!-- Content -->
-            <div class="p-6 sm:p-8">
+            <div class="px-6 sm:px-8 py-6">
                 <div class="prose prose-lg max-w-none">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Description</h3>
                     <div class="text-gray-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
                         {{ product.description }}
                     </div>
                 </div>
             </div>
 
-            <!-- Author Info -->
+            <!-- Seller Info -->
             <div class="border-t border-gray-200 p-6 sm:p-8 bg-gray-50">
                 <div class="flex items-center justify-between">
                     <div>
                         <div class="font-medium text-gray-900">
                             {% if product.user %}
-                                <p>Owner: {{ product.user.username }}</p>
+                                <p>Seller: {{ product.user.username }}</p>
                             {% else %}
-                                <p>Owner: AnonymousShop</p>
+                                <p>Seller: AnonymousShop</p>
                             {% endif %}
                         </div>
                     </div>
