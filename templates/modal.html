@@ -1,0 +1,422 @@
+<!-- Modal -->
+<div id="crudModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div id="crudModalContent" class="bg-white rounded-lg shadow-lg w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 max-h-screen overflow-y-auto">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900">
+          Create New Product
+        </h3>
+        <p class="text-sm text-gray-600 mt-1">Share your football products with the community</p>
+      </div>
+      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideModal()">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <div class="px-6 py-4 space-y-6 form-style">
+      <form id="productForm">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product name" required>
+        </div>
+        <div class="mb-4">
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="description" name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product description" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+          <input type="number" id="price" name="price" min="0" step="1" value="0" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter price in Rupiah" required>
+        </div>
+        <div class="mb-4">
+          <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+          <input type="number" id="stock" name="stock" min="0" step="1" value="0" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter stock quantity" required>
+        </div>
+        <div class="mb-4">
+          <label for="rating" class="block text-sm font-medium text-gray-700">Rating</label>
+          <input type="number" id="rating" name="rating" min="0.0" max="5.0" step="0.1" value="0.0" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter rating (0.0 - 5.0)">
+        </div>
+        <div class="mb-4">
+          <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+          <select id="category" name="category" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+            <option value="">Choose a category</option>
+            <option value="apparel">Apparel</option>
+            <option value="footwear">Footwear</option>
+            <option value="accessories">Accessories</option>
+            <option value="equipment">Equipment</option>
+            <option value="merchandise">Merchandise</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+          <input type="url" id="thumbnail" name="thumbnail" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="https://example.com/image.jpg">
+        </div>
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="is_featured" name="is_featured" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
+            <label for="is_featured" class="ml-2 text-sm font-medium text-gray-900">Featured Product</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Modal footer -->
+    <div class="flex flex-col sm:flex-row gap-4 p-6 border-t border-gray-200 rounded-b">
+      <button type="button" id="cancelButton" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors text-center" onclick="hideModal()">Cancel</button>
+        <button type="submit" id="submitProduct" form="productForm" class="order-1 sm:order-2 flex-1 bg-green-600 text-white px-6 py-3 rounded-md font-medium hover:bg-green-700 transition-colors">Post Product</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  function hideModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+  }
+
+   async function addProductEntry() {
+    await fetch("{% url 'main:add_product_entry_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#productForm')),
+    })
+
+    document.getElementById("productForm").reset();
+    hideModal();
+      
+    // Show toast notification
+    showToast('Product added successfully!', '', 'success');
+
+    // Dispatch custom event to notify main.html about new data
+    document.dispatchEvent(new CustomEvent('productAdded'));
+
+    return false;
+  }
+
+  document.getElementById("productForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    addProductEntry();
+  })
+</script>
+
+<!-- Edit Product Modal -->
+<div id="editModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div id="editModalContent" class="bg-white rounded-lg shadow-lg w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 max-h-screen overflow-y-auto">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900">
+          Edit Product
+        </h3>
+        <p class="text-sm text-gray-600 mt-1">Update your product information</p>
+      </div>
+      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideEditModal()">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <div class="px-6 py-4 space-y-6 form-style">
+      <form id="editProductForm">
+        <input type="hidden" id="editProductId" name="id">
+        <div class="mb-4">
+          <label for="editName" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="editName" name="name" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product name" required>
+        </div>
+        <div class="mb-4">
+          <label for="editDescription" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="editDescription" name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product description" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="editPrice" class="block text-sm font-medium text-gray-700">Price</label>
+          <input type="number" id="editPrice" name="price" min="0" step="1" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter price in Rupiah" required>
+        </div>
+        <div class="mb-4">
+          <label for="editStock" class="block text-sm font-medium text-gray-700">Stock</label>
+          <input type="number" id="editStock" name="stock" min="0" step="1" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter stock quantity" required>
+        </div>
+        <div class="mb-4">
+          <label for="editRating" class="block text-sm font-medium text-gray-700">Rating</label>
+          <input type="number" id="editRating" name="rating" min="0.0" max="5.0" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter rating (0.0 - 5.0)">
+        </div>
+        <div class="mb-4">
+          <label for="editCategory" class="block text-sm font-medium text-gray-700">Category</label>
+          <select id="editCategory" name="category" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+            <option value="">Choose a category</option>
+            <option value="apparel">Apparel</option>
+            <option value="footwear">Footwear</option>
+            <option value="accessories">Accessories</option>
+            <option value="equipment">Equipment</option>
+            <option value="merchandise">Merchandise</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="editThumbnail" class="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+          <input type="url" id="editThumbnail" name="thumbnail" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="https://example.com/image.jpg">
+        </div>
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="editIsFeatured" name="is_featured" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
+            <label for="editIsFeatured" class="ml-2 text-sm font-medium text-gray-900">Featured Product</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Modal footer -->
+    <div class="flex flex-col sm:flex-row gap-4 p-6 border-t border-gray-200 rounded-b">
+      <button type="button" id="editCancelButton" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors text-center" onclick="hideEditModal()">Cancel</button>
+      <button type="submit" id="updateProduct" form="editProductForm" class="order-1 sm:order-2 flex-1 bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition-colors">Update Product</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showEditModal() {
+      const modal = document.getElementById('editModal');
+      const modalContent = document.getElementById('editModalContent');
+
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  function hideEditModal() {
+      const modal = document.getElementById('editModal');
+      const modalContent = document.getElementById('editModalContent');
+
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+
+      // Reset form
+      document.getElementById("editProductForm").reset();
+  }
+
+  async function editProductEntry(productId) {
+    const formData = new FormData(document.querySelector('#editProductForm'));
+    
+    await fetch(`/edit-product-ajax/${productId}/`, {
+      method: "POST",
+      body: formData,
+    })
+
+    hideEditModal();
+      
+    // Show toast notification
+    showToast('Product updated successfully!', '', 'success');
+
+    // Dispatch custom event to notify main.html about updated data
+    document.dispatchEvent(new CustomEvent('productUpdated'));
+
+    return false;
+  }
+
+  document.getElementById("editProductForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const productId = document.getElementById('editProductId').value;
+    editProductEntry(productId);
+  })
+</script>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div id="deleteModalContent" class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900">
+          Delete Product
+        </h3>
+        <p class="text-sm text-gray-600 mt-1">This action cannot be undone</p>
+      </div>
+      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideDeleteModal()">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <div class="px-6 py-4">
+      <div class="flex items-center mb-4">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-lg font-medium text-gray-900">Are you sure?</h4>
+          <p class="text-sm text-gray-600 mt-1">Are you sure you want to delete "<span id="deleteProductName" class="font-semibold"></span>"?</p>
+        </div>
+      </div>
+    </div>
+    <!-- Modal footer -->
+    <div class="flex flex-col sm:flex-row gap-3 p-6 border-t border-gray-200">
+      <button type="button" onclick="hideDeleteModal()" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors text-center">
+        Cancel
+      </button>
+      <button type="button" id="confirmDeleteButton" class="order-1 sm:order-2 flex-1 bg-red-600 text-white px-6 py-3 rounded-md font-medium hover:bg-red-700 transition-colors">
+        Delete Product
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentDeleteProductId = null;
+  let currentDeleteProductName = null;
+
+  function showDeleteModal() {
+      const modal = document.getElementById('deleteModal');
+      const modalContent = document.getElementById('deleteModalContent');
+
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  function hideDeleteModal() {
+      const modal = document.getElementById('deleteModal');
+      const modalContent = document.getElementById('deleteModalContent');
+
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+
+      // Reset variables
+      currentDeleteProductId = null;
+      currentDeleteProductName = null;
+  }
+
+  function confirmDeleteProduct(productId, productName) {
+      console.log('confirmDeleteProduct called with:', productId, productName);
+      currentDeleteProductId = productId;
+      currentDeleteProductName = productName;
+      
+      // Set product name in modal
+      const nameElement = document.getElementById('deleteProductName');
+      if (nameElement) {
+          nameElement.textContent = productName;
+      } else {
+          console.error('deleteProductName element not found');
+      }
+      
+      // Show delete modal
+      showDeleteModal();
+  }
+
+  async function deleteProductEntry() {
+    console.log('deleteProductEntry called with ID:', currentDeleteProductId);
+    if (!currentDeleteProductId) {
+        console.error('No product ID set for deletion');
+        return;
+    }
+
+    try {
+        // Get CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (!csrfToken) {
+            console.error('CSRF token not found');
+            hideDeleteModal();
+            // Try to call showToast if available, otherwise alert
+            if (typeof showToast === 'function') {
+                showToast('CSRF token not found', 'error');
+            } else {
+                alert('CSRF token not found');
+            }
+            return;
+        }
+
+        const response = await fetch(`/delete-product-ajax/${currentDeleteProductId}/`, {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': csrfToken.value,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        });
+
+        const result = await response.json();
+        
+        hideDeleteModal();
+        
+        if (response.ok && result.status === 'success') {
+            // Show success toast using toast.js
+            console.log('Delete successful, calling showToast');
+            if (typeof showToast === 'function') {
+                showToast(`Product deleted successfully!`, '', 'success');
+            } else if (typeof window.showToast === 'function') {
+                window.showToast(`Product deleted successfully!`, '', 'success');
+            } else {
+                console.warn('showToast function not found, using alert');
+                alert(`Product deleted successfully!`);
+            }
+            
+            // Dispatch custom event to notify main.html about deleted data
+            document.dispatchEvent(new CustomEvent('productDeleted'));
+        } else {
+            // Show error toast using toast.js
+            const errorMsg = result.message || 'Failed to delete product';
+            console.error('Delete failed:', errorMsg);
+            if (typeof showToast === 'function') {
+                showToast(errorMsg, 'error');
+            } else if (typeof window.showToast === 'function') {
+                window.showToast(errorMsg, 'error');
+            } else {
+                alert(errorMsg);
+            }
+        }
+    } catch (error) {
+        hideDeleteModal();
+        console.error('Error deleting product:', error);
+        const errorMsg = 'Error occurred while deleting product: ' + error.message;
+        if (typeof showToast === 'function') {
+            showToast(errorMsg, 'error');
+        } else if (typeof window.showToast === 'function') {
+            window.showToast(errorMsg, 'error');
+        } else {
+            alert(errorMsg);
+        }
+    }
+  }
+
+  // Add click event to confirm delete button when DOM is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    const confirmButton = document.getElementById("confirmDeleteButton");
+    if (confirmButton) {
+      confirmButton.addEventListener("click", function() {
+        deleteProductEntry();
+      });
+    }
+  });
+</script>

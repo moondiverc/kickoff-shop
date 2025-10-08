@@ -52,12 +52,12 @@
             Product Detail
             </a>
             <div class="flex space-x-1 flex-shrink-0 ml-2">
-              <a href="{% url 'main:edit_product' product.id %}" class="text-gray-600 hover:text-gray-700 text-xs transition-colors">
-                  Edit
-              </a>
-              <a href="{% url 'main:delete_product' product.id %}" class="text-red-600 hover:text-red-700 text-xs transition-colors">
+              <button onclick="editProductAjax('{{ product.id }}')" class="text-gray-600 hover:text-gray-700 text-xs transition-colors">
+                  Edit AJAX
+              </button>
+              <button onclick="confirmDeleteProduct('{{ product.id }}', '{{ product.name|escapejs }}')" class="text-red-600 hover:text-red-700 text-xs transition-colors">
                   Delete
-              </a>  
+              </button>  
             </div>
         </div>
     {% else %}
