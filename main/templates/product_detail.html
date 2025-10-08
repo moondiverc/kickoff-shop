@@ -30,16 +30,16 @@
   <div id="product-content" class="bg-white rounded-lg shadow-lg overflow-hidden hidden">
     <div class="md:flex">
       <div class="md:w-1/2">
-        <div id="featured-image-container" class="hidden">
+        <div id="featured-image-container" class="aspect-square w-full overflow-hidden bg-gray-100 hidden">
           <img
             id="featured-image"
             src=""
             alt=""
-            class="w-full h-64 md:h-full object-cover"
+            class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
           />
         </div>
-        <div id="no-image-placeholder" class="w-full h-64 md:h-full bg-gray-200 flex items-center justify-center hidden">
-          <span class="text-gray-500">No Image Available</span>
+        <div id="no-image-placeholder" class="aspect-square w-full bg-gray-200 flex items-center justify-center hidden">
+          <span class="text-gray-500 text-lg">No Image Available</span>
         </div>
       </div>
 
