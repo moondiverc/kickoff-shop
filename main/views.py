@@ -128,7 +128,6 @@ def login_ajax(request):
         
         if user is not None:
             login(request, user)
-            # Set last_login cookie
             response = JsonResponse({
                 'status': 'success',
                 'message': 'Login successful',
@@ -147,7 +146,7 @@ def login_ajax(request):
             'status': 'error',
             'message': f'An error occurred: {str(e)}'
         }, status=500)
-
+    
 # fungsi untuk register AJAX
 @csrf_exempt
 @require_POST
@@ -169,14 +168,12 @@ def register_ajax(request):
                 'message': 'Passwords do not match'
             }, status=400)
         
-        # Check if username already exists
         if User.objects.filter(username=username).exists():
             return JsonResponse({
                 'status': 'error',
                 'message': 'Username already exists'
             }, status=400)
         
-        # Create user using Django's UserCreationForm for validation
         form = UserCreationForm({
             'username': username,
             'password1': password1,
@@ -185,9 +182,7 @@ def register_ajax(request):
         
         if form.is_valid():
             user = form.save()
-            # Auto login the user after successful registration
             login(request, user)
-            # Set last_login cookie
             response = JsonResponse({
                 'status': 'success',
                 'message': 'Account created successfully!',
@@ -196,7 +191,6 @@ def register_ajax(request):
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
-            # Extract form errors
             errors = []
             for field, field_errors in form.errors.items():
                 for error in field_errors:
@@ -233,7 +227,6 @@ def edit_product_ajax(request, id):
     try:
         product = get_object_or_404(Product, pk=id)
         
-        # Update product fields with sanitized data
         product.name = strip_tags(request.POST.get("name"))
         product.description = strip_tags(request.POST.get("description"))
         product.price = int(request.POST.get("price", 0))
@@ -245,7 +238,6 @@ def edit_product_ajax(request, id):
         
         product.save()
         
-        # Return success response with updated product data
         return JsonResponse({
             'status': 'success',
             'message': 'Product updated successfully',
@@ -267,16 +259,6 @@ def edit_product_ajax(request, id):
             'status': 'error',
             'message': 'Product not found'
         }, status=404)
-    # except ValueError as e:
-    #     return JsonResponse({
-    #         'status': 'error',
-    #         'message': f'Invalid data: {str(e)}'
-    #     }, status=400)
-    # except Exception as e:
-    #     return JsonResponse({
-    #         'status': 'error',
-    #         'message': f'An error occurred: {str(e)}'
-    #     }, status=500)
 
 # fungsi untuk fiturr hapus product
 def delete_product(request, id):
