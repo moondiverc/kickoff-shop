@@ -17,17 +17,11 @@
     </div>
       <!-- Action Buttons -->
     <div class="flex flex-wrap gap-3 mb-4">
-      <button onclick="showModal()" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-        </svg>
+      <button onclick="showModal()" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-red-500 transition-colors">
         Create Product by AJAX
       </button>
-      
-      <button id="refreshButton" onclick="refreshProducts()" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors">
-        <svg id="refreshIcon" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-        </svg>
+
+      <button id="refreshButton" onclick="refreshProducts()" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-red-500 transition-colors">
         <span id="refreshText">Refresh Products</span>
       </button>
     </div>
@@ -38,7 +32,7 @@
         <a id="filter-all" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-700">
           All Products
         </a>
-        <a id="filter-my" class="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-600 hover:text-red">
+        <a id="filter-my" class="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-600 hover:text-white">
           My Products
         </a>
       </div>
@@ -99,11 +93,11 @@ function updateFilterButtonsAppearance() {
   if (!showAllProductsButton || !showMyProductsButton) return;
   
   if (activeFilter === 'all') {
-    showAllProductsButton.className = 'bg-green-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-700';
-    showMyProductsButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-600 hover:text-white';
+    showAllProductsButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-700';
+    showMyProductsButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-600 hover:text-red-500';
   } else {
-    showMyProductsButton.className = 'bg-green-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-700';
-    showAllProductsButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-green-600 hover:text-white';
+    showMyProductsButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-700';
+    showAllProductsButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-600 hover:text-red-500';
   }
 }
 
@@ -152,7 +146,7 @@ function buildProductCardElement(item) {
         item.thumbnail ? `<img src='${thumbnail}' alt='${name}' class='w-full h-full object-cover'>` : `<div class='w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center'></div>`
     );
     const categoryLabel = getReadableCategoryName(category);
-    const featuredLabel = isFeatured ? `<span class='inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800'>Featured</span>` : '';
+    const featuredLabel = isFeatured ? `<span class='inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800'>Featured</span>` : '';
 
     const editDeleteHtml = CURRENT_USER_ID && Number(CURRENT_USER_ID) === Number(item.user_id)
         ? `<div class='flex space-x-2'>
@@ -167,17 +161,17 @@ function buildProductCardElement(item) {
         </div>
         <div class="p-4 flex flex-col flex-1">
           <div class="flex items-center gap-2 mb-3">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-green-600 text-white">${categoryLabel}</span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-600 text-white">${categoryLabel}</span>
             ${featuredLabel}
           </div>
           <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
-            <a href="${linkDetail}" class="hover:text-green-600 transition-colors text-3xl">${name}</a>
+            <a href="${linkDetail}" class="hover:text-blue-600 transition-colors text-3xl">${name}</a>
           </h3>
           <div class="flex items-center text-sm mb-3">
             <span class="text-green-600 font-bold">Rp ${parseFloat(price || 0).toLocaleString('id-ID')}</span>
           </div>
           <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
-            <a href="${linkDetail}" class="text-green-600 hover:text-green-700 font-medium text-sm transition-colors">View</a>
+            <a href="${linkDetail}" class="text-blue-600 hover:text-green-700 font-medium text-sm transition-colors">View</a>
             ${editDeleteHtml}
           </div>
         </div>
@@ -238,13 +232,11 @@ async function fetchProductsFromServer() {
 // Function to refresh products with loading state
 async function refreshProducts() {
   const refreshButton = document.getElementById('refreshButton');
-  const refreshIcon = document.getElementById('refreshIcon');
   const refreshText = document.getElementById('refreshText');
   
   // Show loading state
   refreshButton.disabled = true;
   refreshButton.classList.add('opacity-50', 'cursor-not-allowed');
-  refreshIcon.classList.add('animate-spin');
   refreshText.textContent = 'Refreshing...';
   
   try {
@@ -271,7 +263,6 @@ async function refreshProducts() {
     // Reset button state
     refreshButton.disabled = false;
     refreshButton.classList.remove('opacity-50', 'cursor-not-allowed');
-    refreshIcon.classList.remove('animate-spin');
     refreshText.textContent = 'Refresh Products';
   }
 }

@@ -185,7 +185,7 @@ function renderProduct(product) {
     // Set stock
     const stock = parseInt(product.stock || 0);
     if (stock > 0) {
-        productStock.textContent = `${stock} available`;
+        productStock.textContent = `${stock}`;
         productStock.className = 'text-green-600 font-semibold';
     } else {
         productStock.textContent = 'Out of stock';
