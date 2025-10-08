@@ -338,6 +338,27 @@ def add_product_entry_ajax(request):
 
     return HttpResponse(b"CREATED", status=201)
 
+@csrf_exempt
+@require_POST
+def show_produuct_ajax(request):
+    product_list = Product.objects.all()
+    data = [
+        {
+            'id': str(product.id),
+            'name': product.name,
+            'price': product.price,
+            'stock': product.stock,
+            'description': product.description,
+            'category': product.category,
+            'thumbnail': product.thumbnail,
+            'is_featured': product.is_featured,
+            'rating': product.rating,
+            'user_id': product.user_id,
+        }
+        for product in product_list
+    ]
+
+    return JsonResponse(data, safe=False)
 
 
 

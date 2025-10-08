@@ -8,53 +8,47 @@
 {% block content %}
 <main class="p-8 max-w-6xl mx-auto pt-30">
 
-            <!-- Loading State -->
-        <div id="loading-state" class="bg-white rounded-lg border border-gray-200 p-12 text-center">
-            <svg class="animate-spin h-8 w-8 text-green-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-            </svg>
-            <p class="text-gray-600 mt-3">Loading news detail...</p>
-        </div>
+  <!-- Loading State -->
+  <div id="loading-state" class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+    <svg class="animate-spin h-8 w-8 text-green-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
+    <p class="text-gray-600 mt-3">Loading product detail...</p>
+  </div>
 
-        <!-- Error State -->
-        <div id="error-state" class="bg-white rounded-lg border border-gray-200 p-12 text-center hidden">
-            <div class="w-16 h-16 mx-auto mb-4">
-                <div class="text-red-500 text-5xl">⚠️</div>
-            </div>
-            <h3 class="text-lg font-medium text-gray-900 mb-2">Failed to load product</h3>
-            <p class="text-gray-500">Please try again later.</p>
-        </div>
-  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+  <!-- Error State -->
+  <div id="error-state" class="bg-white rounded-lg border border-gray-200 p-12 text-center hidden">
+    <div class="w-16 h-16 mx-auto mb-4">
+      <div class="text-red-500 text-5xl">⚠️</div>
+    </div>
+    <h3 class="text-lg font-medium text-gray-900 mb-2">Failed to load product</h3>
+    <p class="text-gray-500">Please try again later.</p>
+  </div>
+
+  <!-- Product Content (Hidden initially) -->
+  <div id="product-content" class="bg-white rounded-lg shadow-lg overflow-hidden hidden">
     <div class="md:flex">
       <div class="md:w-1/2">
-        {% if product.thumbnail %}
-        <img
-          src="{{ product.thumbnail }}"
-          alt="{{ product.name }}"
-          class="w-full h-64 md:h-full object-cover"
-        />
-        {% else %}
-        <div class="w-full h-64 md:h-full bg-gray-200 flex items-center justify-center">
+        <div id="featured-image-container" class="hidden">
+          <img
+            id="featured-image"
+            src=""
+            alt=""
+            class="w-full h-64 md:h-full object-cover"
+          />
+        </div>
+        <div id="no-image-placeholder" class="w-full h-64 md:h-full bg-gray-200 flex items-center justify-center hidden">
           <span class="text-gray-500">No Image Available</span>
         </div>
-        {% endif %}
       </div>
 
       <!-- content -->
       <div class="md:w-1/2 p-6">
-        <h1 class="text-3xl font-bold mb-4">{{ product.name }}</h1>
+        <h1 id="product-name" class="text-3xl font-bold mb-4"></h1>
         
         <!-- Category and Featured badges -->
-        <div class="mb-4">
-          <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold mr-2">
-            {{ product.get_category_display }}
-          </span>
-          {% if product.is_featured %}
-          <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
-            Featured
-          </span>
-          {% endif %}
+        <div id="badges-container" class="mb-4">
         </div>
         
         <!-- Product Info -->
@@ -62,60 +56,35 @@
           <div class="grid grid-cols-2 gap-4">
             <div>
               <h3 class="font-semibold mb-1">Price:</h3>
-              <p class="text-green-600 font-bold text-lg">Rp {{ product.price|floatformat:0 }}</p>
+              <p id="product-price" class="text-green-600 font-bold text-lg"></p>
             </div>
             <div>
               <h3 class="font-semibold mb-1">Stock:</h3>
-              <p class="{% if product.stock > 0 %}text-green-600{% else %}text-red-600{% endif %} font-semibold">
-                {% if product.stock > 0 %}
-                  {{ product.stock }} available
-                {% else %}
-                  Out of stock
-                {% endif %}
-              </p>
+              <p id="product-stock" class="font-semibold"></p>
             </div>
           </div>
         </div>
 
-        {% if product.rating %}
-        <div class="mb-4">
+        <div id="product-rating-section" class="mb-4 hidden">
           <h3 class="font-semibold mb-2">Rating:</h3>
           <div class="flex items-center">
-            <span class="text-yellow-600 font-semibold mr-2">{{ product.rating }}/5</span>
-            <div class="flex">
-              {% for i in "12345" %}
-                {% if forloop.counter <= product.rating %}
-                  <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                  </svg>
-                {% else %}
-                  <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
-                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                  </svg>
-                {% endif %}
-              {% endfor %}
+            <span id="product-rating-text" class="text-yellow-600 font-semibold mr-2"></span>
+            <div id="product-rating-stars" class="flex">
             </div>
           </div>
         </div>
-        {% endif %}
 
         <!-- Description -->
         <div class="mb-6">
           <h3 class="font-semibold mb-2">Description:</h3>
-          <p class="text-gray-700 leading-relaxed">
-            {{ product.description }}
+          <p id="product-description" class="text-gray-700 leading-relaxed">
           </p>
         </div>
 
         <!-- Owner Info -->
         <div class="mb-6">
           <h3 class="font-semibold mb-2">Seller:</h3>
-          <p class="text-gray-700 leading-relaxed">
-            {% if product.user %}
-              {{ product.user.username }}
-            {% else %}
-              AnonymousShop
-            {% endif %}
+          <p id="product-seller" class="text-gray-700 leading-relaxed">
           </p>
         </div>
 
@@ -132,7 +101,6 @@
     </div>
   </div>
 </main>
-{% endblock content %}
 
 <script>
 // Configuration
@@ -142,21 +110,25 @@ const PRODUCT_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-00
 // DOM Elements
 const loadingState = document.getElementById('loading-state');
 const errorState = document.getElementById('error-state');
-const articleContent = document.getElementById('article-content');
+const productContent = document.getElementById('product-content');
 const badgesContainer = document.getElementById('badges-container');
-const articleName = document.getElementById('article-name');
-const articleDate = document.getElementById('article-date');
-const articleViews = document.getElementById('article-views');
+const productName = document.getElementById('product-name');
+const productPrice = document.getElementById('product-price');
+const productStock = document.getElementById('product-stock');
+const productDescription = document.getElementById('product-description');
+const productSeller = document.getElementById('product-seller');
+const productRatingSection = document.getElementById('product-rating-section');
+const productRatingText = document.getElementById('product-rating-text');
+const productRatingStars = document.getElementById('product-rating-stars');
 const featuredImageContainer = document.getElementById('featured-image-container');
 const featuredImage = document.getElementById('featured-image');
-const articleContentText = document.getElementById('article-content-text');
-const articleSeller = document.getElementById('article-seller');
+const noImagePlaceholder = document.getElementById('no-image-placeholder');
 
 // Show/hide page sections
 function showState(state) {
     loadingState.classList.toggle('hidden', state !== 'loading');
     errorState.classList.toggle('hidden', state !== 'error');
-    articleContent.classList.toggle('hidden', state !== 'ready');
+    productContent.classList.toggle('hidden', state !== 'ready');
 }
 
 // Get readable category name
@@ -171,55 +143,80 @@ function getCategoryLabel(categoryCode) {
     return categoryMapping[categoryCode] || categoryCode;
 }
 
-// Render article content
-function renderArticle(product) {
-    // Set name
-    articleName.textContent = product.name;
-    document.title = `${product.name} - Football News`;
+// Generate star rating HTML
+function generateStarRating(rating) {
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            starsHtml += '<svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+        } else {
+            starsHtml += '<svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+        }
+    }
+    return starsHtml;
+}
+
+// Render product content
+function renderProduct(product) {
+    // Set name and title
+    productName.textContent = product.name;
+    document.title = `${product.name} - KickOff Shop`;
 
     // Set badges
     badgesContainer.innerHTML = '';
     
     // Category badge
     const categoryBadge = document.createElement('span');
-    categoryBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-green-600 text-white';
+    categoryBadge.className = 'bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold mr-2';
     categoryBadge.textContent = getCategoryLabel(product.category);
     badgesContainer.appendChild(categoryBadge);
     
     // Featured badge
     if (product.is_featured) {
         const featuredBadge = document.createElement('span');
-        featuredBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800';
+        featuredBadge.className = 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold';
         featuredBadge.textContent = 'Featured';
         badgesContainer.appendChild(featuredBadge);
     }
     
-    // Set date and views
-    const formattedDate = new Date(product.created_at).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-    articleDate.textContent = formattedDate;
-    articleViews.textContent = `${product.product_views} views`;
+    // Set price
+    productPrice.textContent = `Rp ${parseFloat(product.price || 0).toLocaleString('id-ID')}`;
+    
+    // Set stock
+    const stock = parseInt(product.stock || 0);
+    if (stock > 0) {
+        productStock.textContent = `${stock} available`;
+        productStock.className = 'text-green-600 font-semibold';
+    } else {
+        productStock.textContent = 'Out of stock';
+        productStock.className = 'text-red-600 font-semibold';
+    }
+    
+    // Set description
+    productDescription.textContent = product.description || 'No description available';
+    
+    // Set seller
+    productSeller.textContent = product.user_username || 'AnonymousShop';
+    
+    // Set rating
+    if (product.rating && product.rating > 0) {
+        productRatingText.textContent = `${product.rating}/5`;
+        productRatingStars.innerHTML = generateStarRating(product.rating);
+        productRatingSection.classList.remove('hidden');
+    } else {
+        productRatingSection.classList.add('hidden');
+    }
     
     // Set featured image
     if (product.thumbnail) {
         featuredImage.src = product.thumbnail;
-        featuredImage.alt = product.title;
+        featuredImage.alt = product.name;
         featuredImageContainer.classList.remove('hidden');
+        noImagePlaceholder.classList.add('hidden');
     } else {
         featuredImageContainer.classList.add('hidden');
+        noImagePlaceholder.classList.remove('hidden');
     }
-    
-    // Set content
-    articleContentText.textContent = product.content;
-    
-    // Set seller
-    const sellerName = product.user_username || 'AnonymousShop';
-    articleSeller.textContent = `Seller: ${sellerName}`;
 }
 
 // Fetch product detail
@@ -236,7 +233,7 @@ async function loadProductDetail() {
         }
 
         const productData = await response.json();
-        renderArticle(productData);
+        renderProduct(productData);
         showState('ready');
     } catch (error) {
         console.error('Error loading product detail:', error);
@@ -245,5 +242,10 @@ async function loadProductDetail() {
 }
 
 // Initialize page
-loadNewsDetail();
+document.addEventListener('DOMContentLoaded', function() {
+    loadProductDetail();
+});
 </script>
+
+{% endblock content %}
+
