@@ -156,9 +156,11 @@ function buildProductCardElement(item) {
         : '';
 
     const cardHtml = `
-        <div class="aspect-square relative overflow-hidden">
-          ${thumbnailHtml}
-        </div>
+          <div class="aspect-square relative overflow-hidden">
+            <a href="${linkDetail}" class="block w-full h-full hover:opacity-90 transition-opacity">
+              ${thumbnailHtml}
+            </a>
+          </div>
         <div class="p-4 flex flex-col flex-1">
           <div class="flex items-center gap-2 mb-3">
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-600 text-white">${categoryLabel}</span>
