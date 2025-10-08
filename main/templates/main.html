@@ -237,7 +237,6 @@ async function refreshProducts() {
   // Show loading state
   refreshButton.disabled = true;
   refreshButton.classList.add('opacity-50', 'cursor-not-allowed');
-  refreshText.textContent = 'Refreshing...';
   
   try {
     // Use existing function to fetch products
@@ -263,7 +262,6 @@ async function refreshProducts() {
     // Reset button state
     refreshButton.disabled = false;
     refreshButton.classList.remove('opacity-50', 'cursor-not-allowed');
-    refreshText.textContent = 'Refresh Products';
   }
 }
 
