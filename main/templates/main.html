@@ -167,8 +167,8 @@ function buildProductCardElement(item) {
           <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
             <a href="${linkDetail}" class="hover:text-blue-600 transition-colors text-3xl">${name}</a>
           </h3>
-          <div class="flex items-center text-sm mb-3 flex-grow">
-            <span class="text-green-600 font-bold">Rp ${parseFloat(price || 0).toLocaleString('id-ID')}</span>
+          <div class="flex items-center mb-3 flex-grow">
+            <span class="text-2xl font-bold text-green-600 bg-green-50 px-3 py-1 rounded-lg">Rp ${parseFloat(price || 0).toLocaleString('id-ID')}</span>
           </div>
           <div class="pt-4 border-t border-gray-200 flex items-center justify-between mt-auto">
             <a href="${linkDetail}" class="text-blue-600 hover:text-green-700 font-medium text-sm transition-colors">View</a>
