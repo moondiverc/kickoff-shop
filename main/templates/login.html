@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok && result.status === 'success') {
                 // Show success toast
                 if (typeof showToast === 'function') {
-                    showToast(result.message, 'Login Successful', 'success');
+                    showToast(result.message, '', 'success');
                 }
                 // Redirect after a short delay
                 setTimeout(() => {
