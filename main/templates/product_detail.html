@@ -1,44 +1,62 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block meta %}
+{% extends 'base.html' %} {% load static %} {% block meta %}
 <title>{{ product.name }} - KickOff Shop</title>
-{% endblock meta %}
-
-{% block content %}
+{% endblock meta %} {% block content %}
 <main class="p-8 max-w-6xl mx-auto pt-30">
-
   <!-- Loading State -->
-  <div id="loading-state" class="bg-white rounded-lg border border-gray-200 p-12 text-center">
-    <svg class="animate-spin h-8 w-8 text-blue-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+  <div
+    id="loading-state"
+    class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+    <svg
+      class="animate-spin h-8 w-8 text-blue-600 inline-block"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24">
+      <circle
+        class="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        stroke-width="4"></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
     </svg>
     <p class="text-gray-600 mt-3">Loading product detail...</p>
   </div>
 
   <!-- Error State -->
-  <div id="error-state" class="bg-white rounded-lg border border-gray-200 p-12 text-center hidden">
+  <div
+    id="error-state"
+    class="bg-white rounded-lg border border-gray-200 p-12 text-center hidden">
     <div class="w-16 h-16 mx-auto mb-4">
       <div class="text-red-500 text-5xl">⚠️</div>
     </div>
-    <h3 class="text-lg font-medium text-gray-900 mb-2">Failed to load product</h3>
+    <h3 class="text-lg font-medium text-gray-900 mb-2">
+      Failed to load product
+    </h3>
     <p class="text-gray-500">Please try again later.</p>
   </div>
 
   <!-- Product Content (Hidden initially) -->
-  <div id="product-content" class="bg-white rounded-lg shadow-lg overflow-hidden hidden">
+  <div
+    id="product-content"
+    class="bg-white rounded-lg shadow-lg overflow-hidden hidden">
     <div class="md:flex">
       <div class="md:w-1/2">
-        <div id="featured-image-container" class="aspect-square w-full overflow-hidden bg-gray-100 hidden">
+        <div
+          id="featured-image-container"
+          class="aspect-square w-full overflow-hidden bg-gray-100 hidden">
           <img
             id="featured-image"
             src=""
             alt=""
-            class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
-          />
+            class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300" />
         </div>
-        <div id="no-image-placeholder" class="aspect-square w-full bg-gray-200 flex items-center justify-center hidden">
+        <div
+          id="no-image-placeholder"
+          class="aspect-square w-full bg-gray-200 flex items-center justify-center hidden">
           <span class="text-gray-500 text-lg">No Image Available</span>
         </div>
       </div>
@@ -46,17 +64,18 @@
       <!-- content -->
       <div class="md:w-1/2 p-6">
         <h1 id="product-name" class="text-3xl font-bold mb-4"></h1>
-        
+
         <!-- Category and Featured badges -->
-        <div id="badges-container" class="mb-4">
-        </div>
-        
+        <div id="badges-container" class="mb-4"></div>
+
         <!-- Product Info -->
         <div class="mb-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
               <h3 class="font-semibold mb-1">Price:</h3>
-              <p id="product-price" class="text-green-600 font-bold text-lg"></p>
+              <p
+                id="product-price"
+                class="text-green-600 font-bold text-lg"></p>
             </div>
             <div>
               <h3 class="font-semibold mb-1">Stock:</h3>
@@ -68,32 +87,30 @@
         <div id="product-rating-section" class="mb-4 hidden">
           <h3 class="font-semibold mb-2">Rating:</h3>
           <div class="flex items-center">
-            <span id="product-rating-text" class="text-yellow-600 font-semibold mr-2"></span>
-            <div id="product-rating-stars" class="flex">
-            </div>
+            <span
+              id="product-rating-text"
+              class="text-yellow-600 font-semibold mr-2"></span>
+            <div id="product-rating-stars" class="flex"></div>
           </div>
         </div>
 
         <!-- Description -->
         <div class="mb-6">
           <h3 class="font-semibold mb-2">Description:</h3>
-          <p id="product-description" class="text-gray-700 leading-relaxed">
-          </p>
+          <p id="product-description" class="text-gray-700 leading-relaxed"></p>
         </div>
 
         <!-- Owner Info -->
         <div class="mb-6">
           <h3 class="font-semibold mb-2">Seller:</h3>
-          <p id="product-seller" class="text-gray-700 leading-relaxed">
-          </p>
+          <p id="product-seller" class="text-gray-700 leading-relaxed"></p>
         </div>
 
         <!-- back to product page -->
         <div class="flex gap-4">
           <a
             href="{% url 'main:show_main' %}"
-            class="bg-blue-600 text-white px-4 py-2 rounded-md mb-6 inline-block hover:bg-blue-700 transition-colors"
-          >
+            class="bg-blue-600 text-white px-4 py-2 rounded-md mb-6 inline-block hover:bg-blue-700 transition-colors">
             Back to Products
           </a>
         </div>
@@ -103,149 +120,163 @@
 </main>
 
 <script>
-// Configuration
-const PRODUCT_ID = "{{ product.id }}";
-const PRODUCT_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', PRODUCT_ID);
+  // Configuration
+  const PRODUCT_ID = "{{ product.id }}";
+  const PRODUCT_DETAIL_ENDPOINT =
+    `{% url 'main:show_json_by_id' '00000000-0000-0000-0000-000000000000' %}`.replace(
+      "00000000-0000-0000-0000-000000000000",
+      PRODUCT_ID
+    );
 
-// DOM Elements
-const loadingState = document.getElementById('loading-state');
-const errorState = document.getElementById('error-state');
-const productContent = document.getElementById('product-content');
-const badgesContainer = document.getElementById('badges-container');
-const productName = document.getElementById('product-name');
-const productPrice = document.getElementById('product-price');
-const productStock = document.getElementById('product-stock');
-const productDescription = document.getElementById('product-description');
-const productSeller = document.getElementById('product-seller');
-const productRatingSection = document.getElementById('product-rating-section');
-const productRatingText = document.getElementById('product-rating-text');
-const productRatingStars = document.getElementById('product-rating-stars');
-const featuredImageContainer = document.getElementById('featured-image-container');
-const featuredImage = document.getElementById('featured-image');
-const noImagePlaceholder = document.getElementById('no-image-placeholder');
+  // DOM Elements
+  const loadingState = document.getElementById("loading-state");
+  const errorState = document.getElementById("error-state");
+  const productContent = document.getElementById("product-content");
+  const badgesContainer = document.getElementById("badges-container");
+  const productName = document.getElementById("product-name");
+  const productPrice = document.getElementById("product-price");
+  const productStock = document.getElementById("product-stock");
+  const productDescription = document.getElementById("product-description");
+  const productSeller = document.getElementById("product-seller");
+  const productRatingSection = document.getElementById(
+    "product-rating-section"
+  );
+  const productRatingText = document.getElementById("product-rating-text");
+  const productRatingStars = document.getElementById("product-rating-stars");
+  const featuredImageContainer = document.getElementById(
+    "featured-image-container"
+  );
+  const featuredImage = document.getElementById("featured-image");
+  const noImagePlaceholder = document.getElementById("no-image-placeholder");
 
-// Show/hide page sections
-function showState(state) {
-    loadingState.classList.toggle('hidden', state !== 'loading');
-    errorState.classList.toggle('hidden', state !== 'error');
-    productContent.classList.toggle('hidden', state !== 'ready');
-}
+  // show/hide page sections
+  function showState(state) {
+    loadingState.classList.toggle("hidden", state !== "loading");
+    errorState.classList.toggle("hidden", state !== "error");
+    productContent.classList.toggle("hidden", state !== "ready");
+  }
 
-// Get readable category name
-function getCategoryLabel(categoryCode) {
+  // get readable category name
+  function getCategoryLabel(categoryCode) {
     const categoryMapping = {
-        'apparel': 'Apparel',
-        'footwear': 'Footwear',
-        'accessories': 'Accessories',
-        'equipment': 'Equipment',
-        'merchandise': 'Merchandise',
+      apparel: "Apparel",
+      footwear: "Footwear",
+      accessories: "Accessories",
+      equipment: "Equipment",
+      merchandise: "Merchandise",
     };
     return categoryMapping[categoryCode] || categoryCode;
-}
+  }
 
-// Generate star rating HTML
-function generateStarRating(rating) {
-    let starsHtml = '';
+  // generate star rating HTML
+  function generateStarRating(rating) {
+    let starsHtml = "";
     for (let i = 1; i <= 5; i++) {
-        if (i <= rating) {
-            starsHtml += '<svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-        } else {
-            starsHtml += '<svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-        }
+      if (i <= rating) {
+        starsHtml +=
+          '<svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+      } else {
+        starsHtml +=
+          '<svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+      }
     }
     return starsHtml;
-}
+  }
 
-// Render product content
-function renderProduct(product) {
-    // Set name and title
+  // render product content
+  function renderProduct(product) {
+    // set name and title
     productName.textContent = product.name;
     document.title = `${product.name} - KickOff Shop`;
 
-    // Set badges
-    badgesContainer.innerHTML = '';
-    
-    // Category badge
-    const categoryBadge = document.createElement('span');
-    categoryBadge.className = 'bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold mr-2';
+    // set badges
+    badgesContainer.innerHTML = "";
+
+    // category badge
+    const categoryBadge = document.createElement("span");
+    categoryBadge.className =
+      "bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold mr-2";
     categoryBadge.textContent = getCategoryLabel(product.category);
     badgesContainer.appendChild(categoryBadge);
-    
-    // Featured badge
+
+    // featured badge
     if (product.is_featured) {
-        const featuredBadge = document.createElement('span');
-        featuredBadge.className = 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold';
-        featuredBadge.textContent = 'Featured';
-        badgesContainer.appendChild(featuredBadge);
+      const featuredBadge = document.createElement("span");
+      featuredBadge.className =
+        "bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold";
+      featuredBadge.textContent = "Featured";
+      badgesContainer.appendChild(featuredBadge);
     }
-    
-    // Set price
-    productPrice.textContent = `Rp ${parseFloat(product.price || 0).toLocaleString('id-ID')}`;
-    
-    // Set stock
+
+    // set price
+    productPrice.textContent = `Rp ${parseFloat(
+      product.price || 0
+    ).toLocaleString("id-ID")}`;
+
+    // set stock
     const stock = parseInt(product.stock || 0);
     if (stock > 0) {
-        productStock.textContent = `${stock}`;
-        productStock.className = 'text-green-600 font-semibold';
+      productStock.textContent = `${stock}`;
+      productStock.className = "text-green-600 font-semibold";
     } else {
-        productStock.textContent = 'Out of stock';
-        productStock.className = 'text-red-600 font-semibold';
+      productStock.textContent = "Out of stock";
+      productStock.className = "text-red-600 font-semibold";
     }
-    
-    // Set description
-    productDescription.textContent = product.description || 'No description available';
-    
-    // Set seller
-    productSeller.textContent = product.user_username || 'AnonymousShop';
-    
-    // Set rating
+
+    // set description
+    productDescription.textContent =
+      product.description || "No description available";
+
+    // set seller
+    productSeller.textContent = product.user_username || "AnonymousShop";
+
+    // set rating
     if (product.rating && product.rating > 0) {
-        productRatingText.textContent = `${product.rating}/5`;
-        productRatingStars.innerHTML = generateStarRating(product.rating);
-        productRatingSection.classList.remove('hidden');
+      productRatingText.textContent = `${product.rating}/5`;
+      productRatingStars.innerHTML = generateStarRating(product.rating);
+      productRatingSection.classList.remove("hidden");
     } else {
-        productRatingSection.classList.add('hidden');
+      productRatingSection.classList.add("hidden");
     }
-    
-    // Set featured image
+
+    // set featured image
     if (product.thumbnail) {
-        featuredImage.src = product.thumbnail;
-        featuredImage.alt = product.name;
-        featuredImageContainer.classList.remove('hidden');
-        noImagePlaceholder.classList.add('hidden');
+      featuredImage.src = product.thumbnail;
+      featuredImage.alt = product.name;
+      featuredImageContainer.classList.remove("hidden");
+      noImagePlaceholder.classList.add("hidden");
     } else {
-        featuredImageContainer.classList.add('hidden');
-        noImagePlaceholder.classList.remove('hidden');
+      featuredImageContainer.classList.add("hidden");
+      noImagePlaceholder.classList.remove("hidden");
     }
-}
+  }
 
-// Fetch product detail
-async function loadProductDetail() {
+  // fetch product detail
+  async function loadProductDetail() {
     try {
-        showState('loading');
+      showState("loading");
 
-        const response = await fetch(PRODUCT_DETAIL_ENDPOINT, {
-            headers: { 'Accept': 'application/json' },
-        });
+      const response = await fetch(PRODUCT_DETAIL_ENDPOINT, {
+        headers: { Accept: "application/json" },
+      });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch product detail');
-        }
+      if (!response.ok) {
+        throw new Error("Failed to fetch product detail");
+      }
 
-        const productData = await response.json();
-        renderProduct(productData);
-        showState('ready');
+      const productData = await response.json();
+      renderProduct(productData);
+      showState("ready");
     } catch (error) {
-        console.error('Error loading product detail:', error);
-        showState('error');
+      console.error("Error loading product detail:", error);
+      showState("error");
     }
-}
+  }
 
-// Initialize page
-document.addEventListener('DOMContentLoaded', function() {
+  // Initialize page
+  document.addEventListener("DOMContentLoaded", function () {
     loadProductDetail();
-});
+  });
 </script>
 
 {% endblock content %}
-

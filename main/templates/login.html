@@ -35,14 +35,16 @@
 
       <!-- Error Display -->
       <div id="error-message" class="hidden mb-6">
-        <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">
+        <div
+          class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">
           <span id="error-text"></span>
         </div>
       </div>
 
       <!-- Success Display -->
       <div id="success-message" class="hidden mb-6">
-        <div class="px-4 py-3 rounded-md text-sm border bg-green-50 border-green-200 text-green-700">
+        <div
+          class="px-4 py-3 rounded-md text-sm border bg-green-50 border-green-200 text-green-700">
           <span id="success-text"></span>
         </div>
       </div>
@@ -85,14 +87,27 @@
           type="submit"
           class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
           <span id="loginButtonText">Sign In</span>
-          <svg id="loginSpinner" class="hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V8.586l-2.293-2.293a1 1 0 00-1.414 1.414L10.586 10H4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          <svg
+            id="loginSpinner"
+            class="hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white inline"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24">
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V8.586l-2.293-2.293a1 1 0 00-1.414 1.414L10.586 10H4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
         </button>
       </form>
 
-      <!-- Messages Display -->
       {% if messages %}
       <div class="mt-6">
         {% for message in messages %}
@@ -119,88 +134,93 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-    const loginButton = document.getElementById('loginButton');
-    const loginButtonText = document.getElementById('loginButtonText');
-    const loginSpinner = document.getElementById('loginSpinner');
-    const errorMessage = document.getElementById('error-message');
-    const errorText = document.getElementById('error-text');
-    const successMessage = document.getElementById('success-message');
-    const successText = document.getElementById('success-text');
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const loginButtonText = document.getElementById("loginButtonText");
+    const loginSpinner = document.getElementById("loginSpinner");
+    const errorMessage = document.getElementById("error-message");
+    const errorText = document.getElementById("error-text");
+    const successMessage = document.getElementById("success-message");
+    const successText = document.getElementById("success-text");
 
     function showError(message) {
-        errorText.textContent = message;
-        errorMessage.classList.remove('hidden');
-        successMessage.classList.add('hidden');
+      errorText.textContent = message;
+      errorMessage.classList.remove("hidden");
+      successMessage.classList.add("hidden");
     }
 
     function showSuccess(message) {
-        successText.textContent = message;
-        successMessage.classList.remove('hidden');
-        errorMessage.classList.add('hidden');
+      successText.textContent = message;
+      successMessage.classList.remove("hidden");
+      errorMessage.classList.add("hidden");
     }
 
     function hideMessages() {
-        errorMessage.classList.add('hidden');
-        successMessage.classList.add('hidden');
+      errorMessage.classList.add("hidden");
+      successMessage.classList.add("hidden");
     }
 
     function setLoading(loading) {
-        if (loading) {
-            loginButton.disabled = true;
-            loginButtonText.textContent = 'Signing In...';
-            loginSpinner.classList.remove('hidden');
-        } else {
-            loginButton.disabled = false;
-            loginButtonText.textContent = 'Sign In';
-            loginSpinner.classList.add('hidden');
-        }
+      if (loading) {
+        loginButton.disabled = true;
+        loginButtonText.textContent = "Signing In...";
+        loginSpinner.classList.remove("hidden");
+      } else {
+        loginButton.disabled = false;
+        loginButtonText.textContent = "Sign In";
+        loginSpinner.classList.add("hidden");
+      }
     }
 
-    loginForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        hideMessages();
+    loginForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      hideMessages();
 
-        const formData = new FormData(loginForm);
+      const formData = new FormData(loginForm);
 
-        try {
-            const response = await fetch('{% url "main:login_ajax" %}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                }
-            });
+      try {
+        const response = await fetch('{% url "main:login_ajax" %}', {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+          },
+        });
 
-            const result = await response.json();
+        const result = await response.json();
 
-            if (response.ok && result.status === 'success') {
-                // Show success toast
-                if (typeof showToast === 'function') {
-                    showToast(result.message, '', 'success');
-                }
-                // Redirect after a short delay
-                setTimeout(() => {
-                    window.location.href = result.redirect_url;
-                }, 1000);
-            } else {
-                // Show error toast and form error
-                if (typeof showToast === 'function') {
-                    showToast(result.message || 'Login failed', 'Login Failed', 'error');
-                }
-                showError(result.message || 'Login failed');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            const errorMsg = 'An error occurred during login. Please try again.';
-            if (typeof showToast === 'function') {
-                showToast(errorMsg, 'Login Error', 'error');
-            }
-            showError(errorMsg);
+        if (response.ok && result.status === "success") {
+          // Show success toast
+          if (typeof showToast === "function") {
+            showToast(result.message, "", "success");
+          }
+          // Redirect after a short delay
+          setTimeout(() => {
+            window.location.href = result.redirect_url;
+          }, 1000);
+        } else {
+          // Show error toast and form error
+          if (typeof showToast === "function") {
+            showToast(
+              result.message || "Login failed",
+              "Login Failed",
+              "error"
+            );
+          }
+          showError(result.message || "Login failed");
         }
+      } catch (error) {
+        console.error("Login error:", error);
+        const errorMsg = "An error occurred during login. Please try again.";
+        if (typeof showToast === "function") {
+          showToast(errorMsg, "Login Error", "error");
+        }
+        showError(errorMsg);
+      }
     });
-});
+  });
 </script>
 
 {% endblock content %}

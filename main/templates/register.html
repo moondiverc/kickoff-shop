@@ -193,19 +193,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
 
             if (response.ok && result.status === 'success') {
-                // Show success toast
                 if (typeof showToast === 'function') {
                     showToast(result.message, 'Registration Successful', 'success');
                 }
                 showSuccess(result.message);
-                // Reset form
                 registerForm.reset();
-                // Redirect after a short delay
                 setTimeout(() => {
                     window.location.href = result.redirect_url;
                 }, 2000);
             } else {
-                // Show error toast and form error
                 if (typeof showToast === 'function') {
                     showToast(result.message || 'Registration failed', 'Registration Failed', 'error');
                 }
