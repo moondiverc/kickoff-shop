@@ -364,7 +364,7 @@ def proxy_image(request):
         return HttpResponse(f'Error fetching image: {str(e)}', status=500)
 
 @csrf_exempt
-def create_news_flutter(request):
+def create_product_flutter(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         name = strip_tags(data.get("name", ""))  # Strip HTML tags
@@ -407,6 +407,33 @@ def create_news_flutter(request):
 
 
 
+
+def show_json_filtered(request):
+    filter_type = request.GET.get("filter", "all") 
+
+    if filter_type == "my" and request.user.is_authenticated:
+        product_list = Product.objects.filter(user=request.user)
+    else:
+        product_list = Product.objects.all()
+
+    data = [
+        {
+            'id': str(product.id),
+            'name': product.name,
+            'price': product.price,
+            'stock': product.stock,
+            'description': product.description,
+            'category': product.category,
+            'thumbnail': product.thumbnail,
+            'is_featured': product.is_featured,
+            'rating': product.rating,
+            'user_id': product.user_id,
+            'user_username': product.user.username if product.user_id else None, # Tambahkan username untuk informasi lebih
+        }
+        for product in product_list
+    ]
+
+    return JsonResponse(data, safe=False)
 
 # mengembalikan data dalam bentuk XML
 def show_xml(request):
